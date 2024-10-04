@@ -1,0 +1,19 @@
+### Read all films with minimum duration
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/films
+
+### Read one film
+GET {{baseUrl}}/films/films/1
+
+### Create a film
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title": "Inception",
+    "director": "Christopher Nolan",
+    "duration": 148,
+    "budget": 160,
+    "description": "A mind-bending thriller",
+    "imageUrl": "https://example.com/inception.jpg"
+}
