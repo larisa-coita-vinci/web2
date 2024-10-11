@@ -3,7 +3,7 @@
 GET {{baseUrl}}/films
 
 ### Read one film
-GET {{baseUrl}}/films/films/1
+GET {{baseUrl}}/films/1
 
 ### Create a film
 POST {{baseUrl}}/films

@@ -37,7 +37,7 @@ router.get("/", (_req, res) => {
   return res.json(films);
 });
 
-router.get("/films", (req, res) => {
+router.get("/", (req, res) => {
   const minDuration = Number(req.query['minimum-duration']);
   if (isNaN(minDuration) || minDuration <= 0) {
     return res.status(400).json({ error: "Wrong minimum duration" });
@@ -46,7 +46,7 @@ router.get("/films", (req, res) => {
   return res.json(filteredFilms);
 });
 
-router.get("/films/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
   if (isNaN(id) || id <= 0) {
     return res.status(400).json({ error: "Invalid ID" });
@@ -58,10 +58,14 @@ router.get("/films/:id", (req, res) => {
   return res.json(film);
 });
 
-router.post("/films", (req, res) => {
+router.post("/", (req, res) => {
   const { title, director, duration, budget, description, imageUrl } = req.body;
   if (!title || !director || typeof duration !== 'number' || duration <= 0) {
     return res.status(400).json({ error: "Invalid data" });
+  }
+  const existingFilm = films.find (film => film.title === title && film.director === director);
+  if(existingFilm){
+    return res.status(409).json({error: "Film already exist"})
   }
   const nextId = films.reduce((maxId, film) => (film.id > maxId ? film.id : maxId), 0) + 1;
   const newFilm = { id: nextId, title, director, duration, budget, description, imageUrl };
